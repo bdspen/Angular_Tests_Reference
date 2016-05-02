@@ -18,8 +18,8 @@ karma start
 
 ##### Documentation Reference
 
-*Angular Unit Tests: *  _https://docs.angularjs.org/guide/unit-testing_
+**Angular Unit Tests:**  _https://docs.angularjs.org/guide/unit-testing_
 
-*Karma: * _https://karma-runner.github.io/0.13/index.html_
+**Karma:** _https://karma-runner.github.io/0.13/index.html_
 
-*Jasmine: *_https://github.com/jasmine/jasmine_
+**Jasmine:** _https://github.com/jasmine/jasmine_
