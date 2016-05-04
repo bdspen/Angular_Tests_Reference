@@ -1,59 +1,65 @@
-(function(){
-  'use-strict'
+(function() {
+    'use-strict'
 
-  angular.module('app',[]);
+    angular.module('app', []);
 
-//reverse filter---------------------------------
-    function Reverse(){
-      return function(string){
-          return string.split('').reverse().join('');
-      };
+    //reverse filter---------------------------------
+    function Reverse() {
+        return function(string) {
+            return string.split('').reverse().join('');
+        };
     };
     angular.module('app')
-    .filter('Reverse', Reverse);
+        .filter('Reverse', Reverse);
 
-//controller1----------------------------------
+    //controller1----------------------------------
 
-    function Controller1(){
+    function Controller1() {
 
-      var vm = this;
-      vm.name = 'ben';
+        var vm = this;
+        vm.name = 'ben';
 
     };
     angular.module('app')
-    .controller('Controller1', Controller1);
+        .controller('Controller1', Controller1);
 
-//factory-------------------------------------------
-  function UserFactory($http){
+    //factory-------------------------------------------
+    function UserFactory($http){
 
-    var userFactory = {
-      getUsers: function(){
-        $http.get('http://jsonplaceholder.typicode.com').success(function(data){
-        })
-        .error(function(status){
-          console.log('error!: ' + status);
-          return "ERROR";
-        })
-      }
-    }
-    return userFactory;
-
-  }
-
-  UserFactory.$inject = ['$http'];
-  angular.module('app')
-  .factory('UserFactory', UserFactory);
-
-
-//directive---------------------------------------
-      function dirdir(){
-        var directive = {
-          link: link,
-          templateUrl: '/template/is/located/here.html',
-          restrict: 'EA'
+      return {
+        getUsers: function(){
+          return $http.get('http://jsonplaceholder.typicode.com')
         }
       }
-      angular.module('app')
-      .directive('dirdir', dirdir);
+    }
+
+    UserFactory.$inject = ['$http'];
+    angular.module('app')
+    .factory('UserFactory', UserFactory);
+
+
+    //directive---------------------------------------
+    function dirdir() {
+        return {
+            link: link,
+            scope: { //pull in any attributes on the element
+                data: '='
+            },
+            controller: function($scope) {
+                $scope.vm.hello = 'hello';
+                console.log($scope.vm.hello);
+            },
+            controllerAs: 'vm',
+            // templateUrl: '/template/is/located/here.html',
+            restrict: 'E',
+            replace: true //replaces your custom named element with a div (must wrap template code in a div)
+        }
+
+        function link(scope, element, attrs) { //use link to interact with dom
+            console.log(scope);
+        };
+    }
+    angular.module('app')
+        .directive('dirdir', dirdir);
 
 }());
